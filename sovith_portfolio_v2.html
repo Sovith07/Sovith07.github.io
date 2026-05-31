@@ -1,0 +1,614 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --y:#FFD93D;--o:#FF6B35;--p:#FF3CAC;--b:#3D9BFF;--g:#00E676;
+  --dark:#080808;--card:#121212;--card2:#1a1a1a;--border:#232323;
+  --text:#F5F5F5;--muted:#666;--muted2:#999;
+}
+body{font-family:'Syne',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:200;background:rgba(8,8,8,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 3rem;display:flex;align-items:center;justify-content:space-between;height:64px;}
+.logo{font-size:1rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(90deg,var(--y),var(--o));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.nav-links{display:flex;gap:.25rem;}
+.nav-btn{background:none;border:none;color:var(--muted2);font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1rem;cursor:pointer;border-radius:4px;transition:color .2s,background .2s;}
+.nav-btn:hover{color:var(--text);background:#1a1a1a;}
+.nav-btn.active{color:var(--y);}
+
+/* ── PAGES ── */
+.page{display:none;animation:fadeIn .35s ease;}
+.page.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
+
+/* ── HOME ── */
+.home-wrap{min-height:calc(100vh - 64px);display:flex;align-items:center;padding:4rem 3rem;gap:4rem;flex-wrap:wrap;}
+.home-photo-col{flex:0 0 280px;}
+.photo-frame{width:260px;height:320px;border-radius:8px;background:var(--card2);border:1px solid var(--border);overflow:hidden;position:relative;}
+.photo-frame img{width:100%;height:100%;object-fit:cover;}
+.photo-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;color:var(--muted);}
+.photo-placeholder svg{width:64px;height:64px;opacity:.3;}
+.photo-placeholder span{font-family:'DM Mono',monospace;font-size:.75rem;letter-spacing:.08em;opacity:.5;}
+.photo-tag{position:absolute;bottom:12px;left:12px;background:var(--y);color:#000;font-family:'DM Mono',monospace;font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .7rem;border-radius:3px;}
+.home-text-col{flex:1;min-width:280px;}
+.greeting{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--o);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.75rem;}
+.home-name{font-size:clamp(2.4rem,5vw,4rem);font-weight:800;letter-spacing:-.03em;line-height:1;margin-bottom:.5rem;}
+.home-name span{background:linear-gradient(135deg,var(--y),var(--o),var(--p));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.home-role{font-family:'DM Mono',monospace;font-size:.9rem;color:var(--muted2);margin-bottom:2rem;letter-spacing:.04em;}
+.home-role b{color:var(--b);}
+.home-section{margin-bottom:1.75rem;}
+.home-section-label{font-size:.7rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--y);margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem;}
+.home-section-label::before{content:'';display:inline-block;width:20px;height:2px;background:var(--y);border-radius:1px;}
+.home-section p{font-family:'DM Mono',monospace;font-size:.82rem;color:var(--muted2);line-height:1.8;}
+.hobbies-list{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem;}
+.hobby-chip{background:var(--card2);border:1px solid var(--border);font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.06em;padding:.3rem .75rem;border-radius:20px;color:var(--muted2);transition:border-color .2s,color .2s;}
+.hobby-chip:hover{border-color:var(--y);color:var(--y);}
+.home-cta{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2rem;}
+.cta-primary{background:var(--y);color:#000;border:none;padding:.8rem 1.8rem;font-family:'Syne',sans-serif;font-weight:800;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:transform .15s,box-shadow .15s;}
+.cta-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,217,61,.25);}
+.cta-sec{background:none;border:1.5px solid var(--border);color:var(--text);padding:.8rem 1.8rem;font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:border-color .2s,color .2s;}
+.cta-sec:hover{border-color:var(--y);color:var(--y);}
+
+/* ── RESUME ── */
+.resume-wrap{padding:3rem;}
+.page-header{margin-bottom:3rem;}
+.page-eyebrow{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--o);margin-bottom:.5rem;}
+.page-title{font-size:2.5rem;font-weight:800;letter-spacing:-.03em;}
+.cv-tabs{display:flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap;}
+.cv-tab{background:none;border:1.5px solid var(--border);color:var(--muted2);font-family:'Syne',sans-serif;font-weight:700;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;padding:.6rem 1.4rem;cursor:pointer;border-radius:4px;transition:all .2s;}
+.cv-tab:hover{border-color:#444;color:var(--text);}
+.cv-tab.active{background:var(--y);border-color:var(--y);color:#000;}
+.cv-viewer{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.cv-topbar{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--border);background:var(--card2);}
+.cv-title{font-family:'DM Mono',monospace;font-size:.8rem;color:var(--muted2);letter-spacing:.06em;}
+.cv-actions{display:flex;gap:.5rem;}
+.cv-btn{background:none;border:1px solid var(--border);color:var(--muted2);font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.06em;padding:.35rem .85rem;cursor:pointer;border-radius:3px;transition:border-color .2s,color .2s;}
+.cv-btn:hover{border-color:var(--y);color:var(--y);}
+.cv-body{padding:3rem;max-width:780px;margin:0 auto;}
+.cv-hero-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2.5rem;gap:2rem;flex-wrap:wrap;}
+.cv-name-block .cv-bigname{font-size:2rem;font-weight:800;letter-spacing:-.02em;}
+.cv-name-block .cv-designation{font-family:'DM Mono',monospace;font-size:.8rem;color:var(--o);margin-top:.3rem;letter-spacing:.05em;}
+.cv-contact-block{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--muted2);line-height:2;text-align:right;}
+.cv-divider{height:1px;background:linear-gradient(90deg,var(--y),var(--o),transparent);margin:1.5rem 0;}
+.cv-section-title{font-size:.7rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--y);margin-bottom:1rem;}
+.cv-entry{margin-bottom:1.25rem;padding-left:1rem;border-left:2px solid var(--border);}
+.cv-entry-title{font-size:.9rem;font-weight:700;margin-bottom:.2rem;}
+.cv-entry-sub{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--o);margin-bottom:.4rem;}
+.cv-entry-desc{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--muted);line-height:1.7;}
+.cv-skills-grid{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem;}
+.cv-skill-tag{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.06em;padding:.25rem .6rem;border:1px solid var(--border);border-radius:3px;color:var(--muted2);}
+.cv-placeholder-notice{text-align:center;padding:3rem;font-family:'DM Mono',monospace;font-size:.8rem;color:var(--muted);border:1px dashed var(--border);border-radius:6px;margin-bottom:2rem;}
+
+/* ── PROJECTS ── */
+.projects-wrap{padding:3rem;}
+.proj-filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+.filter-btn{background:none;border:1px solid var(--border);color:var(--muted2);font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:.4rem 1rem;cursor:pointer;border-radius:20px;transition:all .2s;}
+.filter-btn:hover,.filter-btn.active{background:var(--y);border-color:var(--y);color:#000;}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem;}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:transform .2s,border-color .2s;cursor:pointer;}
+.proj-card:hover{transform:translateY(-4px);border-color:#333;}
+.proj-card-top{height:160px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.proj-card-top .proj-icon{font-size:3rem;z-index:1;}
+.proj-card-top::before{content:'';position:absolute;inset:0;background:var(--grad);opacity:.15;}
+.proj-card-body{padding:1.25rem;}
+.proj-card-tag{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--tag-color);margin-bottom:.5rem;}
+.proj-card-name{font-size:1rem;font-weight:800;letter-spacing:-.01em;margin-bottom:.5rem;}
+.proj-card-desc{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;}
+.proj-card-footer{display:flex;align-items:center;justify-content:space-between;}
+.proj-stack{display:flex;gap:.3rem;flex-wrap:wrap;}
+.proj-pill{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.05em;padding:.2rem .5rem;border:1px solid var(--border);border-radius:3px;color:#555;}
+.proj-gh-btn{display:flex;align-items:center;gap:.4rem;background:none;border:1px solid var(--border);color:var(--muted2);font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.06em;padding:.35rem .8rem;cursor:pointer;border-radius:4px;text-decoration:none;transition:border-color .2s,color .2s;}
+.proj-gh-btn:hover{border-color:var(--text);color:var(--text);}
+.proj-gh-btn svg{width:14px;height:14px;fill:currentColor;}
+
+/* ── CONTACT ── */
+.contact-wrap{padding:3rem;}
+.contact-hero{margin-bottom:3rem;}
+.contact-big{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:1rem;}
+.contact-big span{color:var(--o);}
+.contact-sub{font-family:'DM Mono',monospace;font-size:.85rem;color:var(--muted);line-height:1.8;max-width:520px;}
+.socials-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin-top:2.5rem;}
+.social-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.5rem;display:flex;align-items:center;gap:1rem;text-decoration:none;transition:transform .2s,border-color .2s,background .2s;cursor:pointer;}
+.social-card:hover{transform:translateY(-3px);background:var(--card2);}
+.social-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.social-icon svg{width:24px;height:24px;}
+.social-info .social-name{font-size:.9rem;font-weight:800;letter-spacing:-.01em;margin-bottom:.2rem;}
+.social-info .social-handle{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--muted);letter-spacing:.04em;}
+.social-arrow{margin-left:auto;color:var(--muted);font-size:1.2rem;transition:transform .2s,color .2s;}
+.social-card:hover .social-arrow{transform:translate(3px,-3px);color:var(--text);}
+
+.contact-email-box{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:2rem;margin-top:2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.email-text .label{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+.email-text .addr{font-size:1.1rem;font-weight:700;letter-spacing:-.01em;color:var(--y);}
+.email-copy-btn{background:var(--y);color:#000;border:none;padding:.7rem 1.5rem;font-family:'Syne',sans-serif;font-weight:800;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:transform .15s;}
+.email-copy-btn:hover{transform:scale(1.03);}
+
+footer{border-top:1px solid var(--border);padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
+.footer-copy{font-family:'DM Mono',monospace;font-size:.7rem;color:#333;letter-spacing:.06em;}
+.footer-dot{width:6px;height:6px;border-radius:50%;background:var(--g);animation:pulse 2s infinite;}
+.footer-status{display:flex;align-items:center;gap:.5rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--g);}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+@media(max-width:640px){nav{padding:0 1rem;}.home-wrap,.resume-wrap,.projects-wrap,.contact-wrap{padding:2rem 1.25rem;}.cv-body{padding:1.5rem;}}
+</style>
+
+<nav>
+  <div class="logo">SK.</div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="showPage('home',this)">Home</button>
+    <button class="nav-btn" onclick="showPage('resume',this)">Resume</button>
+    <button class="nav-btn" onclick="showPage('projects',this)">My Projects</button>
+    <button class="nav-btn" onclick="showPage('contact',this)">Contact</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="home-wrap">
+    <div class="home-photo-col">
+      <div class="photo-frame">
+        <img src="20250427_033906.jpg" style="width:100%;height:100%;object-fit:cover;" />
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="22" r="12" stroke="#666" stroke-width="2"/>
+            <path d="M8 56c0-13.255 10.745-24 24-24s24 10.745 24 24" stroke="#666" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span>Your photo here</span>
+        
+        <div class="photo-tag">Data Scientist</div>
+      </div>
+    </div>
+    <div class="home-text-col">
+      <div class="greeting">👋 Hello, I'm</div>
+      <div class="home-name">Sovith<br><span>Kumar Singh</span></div>
+      <div class="home-role">Aspiring <b>Data Scientist & Analyst</b> · Turning data into decisions</div>
+
+      <div class="home-section">
+        <div class="home-section-label">My Story</div>
+        <p>I hold a Master of Science (M.Sc.) in Mathematics from Indian Institute of Technology Delhi and a Bachelor of Science (B.Sc.) in Mathematics from University of Delhi. With a strong foundation in mathematics, statistics, and analytical thinking, I am passionate about leveraging data to solve complex business problems and drive informed decision-making.</p>
+
+<p>My areas of interest include Data Science, Data Analytics, Machine Learning, and Deep Learning. I have experience working with SQL, PostgreSQL, Python, and Data Visualization tools, and I am continuously expanding my expertise in technologies such as Snowflake, ETL pipelines, Docker, MongoDB,Pyspark and cloud-based data solutions. I enjoy transforming raw data into meaningful insights, building scalable data workflows, and applying analytical techniques to support business growth and innovation.</p>
+
+<p>I am committed to continuous learning and aspire to build a successful career at the intersection of mathematics, data, and technology.
+</p>
+      </div>
+
+      <div class="home-section">
+        <div class="home-section-label">My jouney</div>
+        <p>I was introduced to the basics of programming during my school years up to Class 10. After completing my Class 12 education, I pursued a B.Sc. in Mathematics from the University of Delhi. At that time, I was not aware of fields such as Data Science and Data Analytics that combine mathematics with programming.</p>
+
+<p>During the second year of my bachelor's degree, I learned about careers that leverage both mathematical concepts and programming skills. Although I found the field interesting, I had not yet explored it in depth. After completing my bachelor's degree, I qualified for admission to IIT Delhi and decided to pursue an M.Sc. in Mathematics to further strengthen my academic foundation.</p>
+
+<p>During my first semester at IIT Delhi, I began exploring Data Science and Analytics more seriously. The more I learned about the field, the more I realized how well it aligned with my interests and strengths in mathematics, problem-solving, and technology. This exploration gradually evolved into a clear career goal, and since then I have been actively building the skills and knowledge required to establish myself in this domain. That journey has brought me to where I am today, pursuing a career in Data Science and Analytics.
+</p>
+      </div>
+
+      <div class="home-section">
+        <div class="home-section-label">Hobbies & Interests</div>
+        <div class="hobbies-list">
+          <span class="hobby-chip">📊 Data Visualization</span>
+          <span class="hobby-chip">🎮 Gaming</span>
+          <span class="hobby-chip">🎵 Music</span>
+          <span class="hobby-chip">⚽ Football</span>
+          <span class="hobby-chip">🧩 Problem Solving</span>
+          <span class="hobby-chip">✈️ Travelling</span>
+        </div>
+      </div>
+
+      <div class="home-cta">
+        <button class="cta-primary" onclick="showPage('projects',document.querySelectorAll('.nav-btn')[2])">View My Projects</button>
+        <button class="cta-sec" onclick="showPage('contact',document.querySelectorAll('.nav-btn')[3])">Get In Touch</button>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <span class="footer-copy">© 2026 Sovith Kumar Singh</span>
+    <div class="footer-status"><div class="footer-dot"></div>Open to opportunities</div>
+  </footer>
+</div>
+
+<!-- RESUME -->
+<div class="page" id="page-resume">
+  <div class="resume-wrap">
+    <div class="page-header">
+      <div class="page-eyebrow">02 / Resume</div>
+      <div class="page-title">Curriculum Vitae</div>
+    </div>
+
+    <!-- TAB SWITCHER -->
+    <div class="cv-tabs">
+      <button class="cv-tab active" onclick="switchCV('analytics', this)">📊 Data Analytics CV</button>
+      <button class="cv-tab" onclick="switchCV('science', this)">🤖 Data Science CV</button>
+    </div>
+
+     <!-- ANALYTICS CV -->
+    <div id="cv-analytics">
+      <div class="cv-viewer">
+        <div class="cv-topbar">
+          <span class="cv-title">sovith_data_analytics_cv.pdf</span>
+          <div class="cv-actions">
+            <button class="cv-btn" onclick="window.open('sovith_analytics_cv.pdf')">⬇ Download</button>
+            <button class="cv-btn" onclick="window.print()">🖨 Print</button>
+          </div>
+        </div>
+
+    <div class="cv-body">
+  <div class="cv-hero-row">
+    <div class="cv-name-block">
+      <div class="cv-bigname">Sovith Kumar Singh</div>
+      <div class="cv-designation">Data Analyst</div>
+    </div>
+    <div class="cv-contact-block">
+      <div>📍 Bhagalpur, Bihar, 813201</div>
+      <div>📞 7479922782</div>
+      <div>✉️ sovithkumarsingh786786@gmail.com</div>
+      <div>🔗 linkedin.com/in/sovithkumarsingh</div>
+      <div>🐙 github.com/Sovith07</div>
+    </div>
+  </div>
+  <div class="cv-divider"></div>
+
+  <div class="cv-section-title">Education</div>
+  <div class="cv-entry">
+    <div class="cv-entry-title">M.Sc. in Mathematics</div>
+    <div class="cv-entry-sub">Indian Institute of Technology Delhi · 2023 – 2025</div>
+    <div class="cv-entry-desc">CGPA: 6.00</div>
+  </div>
+  <div class="cv-entry">
+    <div class="cv-entry-title">B.Sc. in Mathematics</div>
+    <div class="cv-entry-sub">Deshbandhu College, University of Delhi · 2020 – 2023</div>
+    <div class="cv-entry-desc">CGPA: 8.824</div>
+  </div>
+  <div class="cv-divider"></div>
+
+  <div class="cv-section-title">Projects</div>
+  <div class="cv-entry">
+    <div class="cv-entry-title">IPL Statistics & Performance Analytics System</div>
+    <div class="cv-entry-sub">Power BI · DAX · Data Modelling · Visualization · April 2025 – May 2025</div>
+    <div class="cv-entry-desc">Built an interactive Power BI analytics system covering 17 IPL seasons with Overview, Team, and Player Profile dashboards; delivered 10+ visualisations including runs distribution, wickets leaderboard, win percentages, and top scorers. Modelled batting, bowling, and match datasets with DAX relationships and drill-through navigation.</div>
+  </div>
+  <div class="cv-entry">
+    <div class="cv-entry-title">Supply Chain & Inventory Analytics Dashboard</div>
+    <div class="cv-entry-sub">Python · MySQL · Streamlit · Pandas · Dec 2024</div>
+    <div class="cv-entry-desc">Built a Streamlit dashboard over 5 relational tables using Python-MySQL integration with advanced SQL queries and 3-month rolling sales analysis. Automated reorder risk detection by flagging low-stock products with pending transactions.</div>
+  </div>
+  <div class="cv-entry">
+    <div class="cv-entry-title">Laptop Price Prediction — ML Regression Pipeline</div>
+    <div class="cv-entry-sub">Python · XGBoost · Scikit-Learn · Jan 2025 – Feb 2025</div>
+    <div class="cv-entry-desc">Achieved R² = 0.896 and MAE ≈ 0.15 using XGBoost across 1,300+ records. Evaluated 10+ models with automated ColumnTransformer pipeline and log-price transformation.</div>
+  </div>
+  <div class="cv-divider"></div>
+
+  <div class="cv-section-title">Skills</div>
+  <div class="cv-skills-grid">
+    <span class="cv-skill-tag">Python</span>
+    <span class="cv-skill-tag">SQL</span>
+    <span class="cv-skill-tag">MySQL</span>
+    <span class="cv-skill-tag">PostgreSQL</span>
+    <span class="cv-skill-tag">MongoDB</span>
+    <span class="cv-skill-tag">Snowflake</span>
+    <span class="cv-skill-tag">Power BI</span>
+    <span class="cv-skill-tag">DAX</span>
+    <span class="cv-skill-tag">Excel</span>
+    <span class="cv-skill-tag">Pandas</span>
+    <span class="cv-skill-tag">NumPy</span>
+    <span class="cv-skill-tag">Matplotlib</span>
+    <span class="cv-skill-tag">Seaborn</span>
+    <span class="cv-skill-tag">Scikit-Learn</span>
+    <span class="cv-skill-tag">XGBoost</span>
+    <span class="cv-skill-tag">Streamlit</span>
+  </div>
+  <div class="cv-divider"></div>
+
+  <div class="cv-section-title">Certificates</div>
+  <div class="cv-entry">
+    <div class="cv-entry-title">Data Analytics Projects Certification</div>
+    <div class="cv-entry-sub">CampusX</div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- SCIENCE CV -->
+    <div id="cv-science" style="display:none;">
+      <div class="cv-viewer">
+        <div class="cv-topbar">
+          <span class="cv-title">sovith_datascience_cv.pdf</span>
+          <div class="cv-actions">
+            <button class="cv-btn" onclick="window.open('sovith_datascience_cv.pdf')">⬇ Download</button>
+            <button class="cv-btn" onclick="window.print()">🖨 Print</button>
+          </div>
+        </div>
+
+    <div class="cv-body">
+  <div class="cv-hero-row">
+    <div class="cv-name-block">
+      <div class="cv-bigname">Sovith Kumar Singh</div>
+      <div class="cv-designation">Data Scientist</div>
+    </div>
+    <div class="cv-contact-block">
+      <div>📍 Bhagalpur, Bihar, 813201</div>
+      <div>📞 7479922782</div>
+      <div>✉️ sovithkumarsingh786786@gmail.com</div>
+      <div>🔗 linkedin.com/in/sovithkumarsingh</div>
+      <div>🐙 github.com/Sovith07</div>
+    </div>
+  </div>
+  <div class="cv-divider"></div>
+
+  <div class="cv-section-title">Education</div>
+  <div class="cv-entry">
+    <div class="cv-entry-title">M.Sc. in Mathematics</div>
+    <div class="cv-entry-sub">Indian Institute of Technology Delhi · 2023 – 2025</div>
+    <div class="cv-entry-desc">CGPA: 6.00</div>
+  </div>
+  <div class="cv-entry">
+    <div class="cv-entry-title">B.Sc. in Mathematics</div>
+    <div class="cv-entry-sub">Deshbandhu College, University of Delhi · 2020 – 2023</div>
+    <div class="cv-entry-desc">CGPA: 8.824</div>
+  </div>
+  <div class="cv-divider"></div>
+
+  <div class="cv-section-title">Projects</div>
+  <div class="cv-entry">
+    <div class="cv-entry-title">Conversational AI Chatbot with LangGraph & Streamlit</div>
+    <div class="cv-entry-sub">Python · LangChain · LangGraph · Google Gemini · SQLite · July 2025 – Sep 2025</div>
+    <div class="cv-entry-desc">Engineered a stateful multi-session AI chatbot using LangGraph StateGraph with SQLite checkpointing and Google Gemini with tool-calling support, enabling persistent conversation history and session recovery. Built a Streamlit frontend with multi-thread management and real-time response streaming.</div>
+  </div>
+  <div class="cv-entry">
+    <div class="cv-entry-title">Laptop Price Prediction — ML Regression Pipeline</div>
+    <div class="cv-entry-sub">Python · XGBoost · Scikit-Learn · Jan 2025 – Feb 2025</div>
+    <div class="cv-entry-desc">Achieved R² = 0.896 and MAE ≈ 0.15 using XGBoost across 1,300+ records. Evaluated 10+ models with automated ColumnTransformer pipeline and log-price transformation.</div>
+  </div>
+  <div class="cv-divider"></div>
+
+  <div class="cv-section-title">Skills</div>
+  <div class="cv-skills-grid">
+    <span class="cv-skill-tag">Python</span>
+    <span class="cv-skill-tag">SQL</span>
+    <span class="cv-skill-tag">PostgreSQL</span>
+    <span class="cv-skill-tag">MongoDB</span>
+    <span class="cv-skill-tag">Snowflake</span>
+    <span class="cv-skill-tag">PySpark</span>
+    <span class="cv-skill-tag">Docker</span>
+    <span class="cv-skill-tag">NumPy</span>
+    <span class="cv-skill-tag">Pandas</span>
+    <span class="cv-skill-tag">Scikit-Learn</span>
+    <span class="cv-skill-tag">TensorFlow</span>
+    <span class="cv-skill-tag">PyTorch</span>
+    <span class="cv-skill-tag">XGBoost</span>
+    <span class="cv-skill-tag">LangChain</span>
+    <span class="cv-skill-tag">LangGraph</span>
+    <span class="cv-skill-tag">LangSmith</span>
+    <span class="cv-skill-tag">ANN</span>
+    <span class="cv-skill-tag">CNN</span>
+    <span class="cv-skill-tag">RNN</span>
+    <span class="cv-skill-tag">Transformers</span>
+  </div>
+  <div class="cv-divider"></div>
+
+  <div class="cv-section-title">Certificates</div>
+  <div class="cv-entry">
+    <div class="cv-entry-title">Data Analytics Projects Certification</div>
+    <div class="cv-entry-sub">CampusX</div>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+  <footer>
+    <span class="footer-copy">© 2026 Sovith Kumar Singh</span>
+    <div class="footer-status"><div class="footer-dot"></div>Open to opportunities</div>
+  </footer>
+</div>
+
+<!-- PROJECTS -->
+<div class="page" id="page-projects">
+  <div class="projects-wrap">
+    <div class="page-header">
+      <div class="page-eyebrow">03 / Projects</div>
+      <div class="page-title">My Work</div>
+    </div>
+    <div class="proj-filters">
+  <button class="filter-btn active" onclick="filterProj('all',this)">All</button>
+  <button class="filter-btn" onclick="filterProj('genai',this)">GenAI / RAG</button>
+  <button class="filter-btn" onclick="filterProj('ml',this)">Machine Learning</button>
+  <button class="filter-btn" onclick="filterProj('analytics',this)">Analytics</button>
+  <button class="filter-btn" onclick="filterProj('viz',this)">Visualization</button>
+</div>
+    <div class="proj-grid" id="proj-grid"></div>
+  </div>
+  <footer>
+    <span class="footer-copy">© 2026 Sovith Kumar Singh</span>
+    <div class="footer-status"><div class="footer-dot"></div>Open to opportunities</div>
+  </footer>
+</div>
+
+<!-- CONTACT -->
+<div class="page" id="page-contact">
+  <div class="contact-wrap">
+    <div class="page-header">
+      <div class="page-eyebrow">04 / Contact</div>
+      <div class="page-title">Let's Connect</div>
+    </div>
+    <div class="contact-hero">
+      <div class="contact-big">Got an idea?<br>Let's <span>talk data.</span></div>
+      <p class="contact-sub">Whether it's a project, opportunity, or just a great conversation about data — I'm always up for it. Reach me on any of these platforms.</p>
+    </div>
+
+    <div class="socials-grid">
+      <a class="social-card" href="https://www.linkedin.com/in/sovithkumarsingh/" target="_blank" style="border-color:#0A66C2;">
+        <div class="social-icon" style="background:rgba(10,102,194,.15);">
+          <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </div>
+        <div class="social-info">
+          <div class="social-name">LinkedIn</div>
+          <div class="social-handle">sovithkumarsingh</div>
+        </div>
+        <div class="social-arrow">↗</div>
+      </a>
+
+      <a class="social-card" href="https://github.com/Sovith07" target="_blank" style="border-color:#444;">
+        <div class="social-icon" style="background:rgba(255,255,255,.06);">
+          <svg viewBox="0 0 24 24" fill="#E0E0E0"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        </div>
+        <div class="social-info">
+          <div class="social-name">GitHub</div>
+          <div class="social-handle">Sovith07</div>
+        </div>
+        <div class="social-arrow">↗</div>
+      </a>
+
+      <a class="social-card" href="https://www.instagram.com/_the_big_game__" target="_blank" style="border-color:#C13584;">
+        <div class="social-icon" style="background:rgba(193,53,132,.12);">
+          <svg viewBox="0 0 24 24" fill="url(#ig-grad)"><defs><linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#f09433"/><stop offset="25%" stop-color="#e6683c"/><stop offset="50%" stop-color="#dc2743"/><stop offset="75%" stop-color="#cc2366"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+        </div>
+        <div class="social-info">
+          <div class="social-name">Instagram</div>
+          <div class="social-handle">@_the_big_game__</div>
+        </div>
+        <div class="social-arrow">↗</div>
+      </a>
+
+      <a class="social-card" href="https://github.com/Sovith07" target="_blank" style="border-color:#FF6B35;">
+        <div class="social-icon" style="background:rgba(255,107,53,.12);">
+          <svg viewBox="0 0 24 24" fill="#FF6B35"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        </div>
+        <div class="social-info">
+          <div class="social-name">Portfolio / Code</div>
+          <div class="social-handle">github.com/Sovith07</div>
+        </div>
+        <div class="social-arrow">↗</div>
+      </a>
+    </div>
+
+    <div class="contact-email-box">
+      <div class="email-text">
+        <div class="label">Email me at</div>
+        <div class="addr" id="email-addr">sovithkumarsingh786786@gmail.com</div>
+      </div>
+      <button class="email-copy-btn" onclick="copyEmail()">Copy Email</button>
+    </div>
+  </div>
+  <footer>
+    <span class="footer-copy">© 2026 Sovith Kumar Singh</span>
+    <div class="footer-status"><div class="footer-dot"></div>Open to opportunities</div>
+  </footer>
+</div>
+
+<script>
+const projects = [
+  {
+    cat:'genai',
+    icon:'🤖',
+    grad:'#FF3CAC,#3D9BFF',
+    tag:'GenAI / RAG',
+    tagColor:'#FF3CAC',
+    name:'Conversational AI Chatbot',
+    desc:'Stateful multi-session AI chatbot using LangGraph StateGraph with SQLite checkpointing and Google Gemini. Features real-time streaming, multi-thread conversation management, and persistent session recovery.',
+    stack:['Python','LangChain','LangGraph','Gemini','Streamlit','SQLite'],
+    gh:'https://github.com/Sovith07/Langraph_chatbot'
+  },
+  {
+    cat:'analytics',
+    icon:'📊',
+    grad:'#FF6B35,#FF3CAC',
+    tag:'Analytics',
+    tagColor:'#FF6B35',
+    name:'Supply Chain & Inventory Dashboard',
+    desc:'Streamlit dashboard over 5 relational tables using Python-MySQL integration. Includes 3-month rolling sales analysis, reorder risk detection, and real-time supply chain monitoring.',
+    stack:['Python','MySQL','Streamlit','Pandas','SQL'],
+    gh:'https://github.com/Sovith07/Python-Driven-UI-for-Advanced-SQL-Database-Operations'
+  },
+  {
+    cat:'ml',
+    icon:'💻',
+    grad:'#FFD93D,#FF6B35',
+    tag:'Machine Learning',
+    tagColor:'#FFD93D',
+    name:'Laptop Price Prediction',
+    desc:'End-to-end ML regression pipeline achieving R² = 0.896 using XGBoost across 1,300+ records. Evaluated 10+ models with automated ColumnTransformer pipeline and log-price transformation.',
+    stack:['Python','XGBoost','Scikit-Learn','Pandas','Matplotlib'],
+    gh:'https://github.com/Sovith07/Laptop-Price-Prediction-Machine-Learning-Project-'
+  },
+  {
+    cat:'analytics',
+    icon:'💳',
+    grad:'#3D9BFF,#00E676',
+    tag:'SQL Analytics',
+    tagColor:'#3D9BFF',
+    name:'Credit Card SQL Analysis',
+    desc:'In-depth SQL analysis of credit card transaction data. Explores spending patterns, customer segments, fraud indicators, and key financial KPIs using advanced queries and aggregations.',
+    stack:['SQL','PostgreSQL','Data Analysis','Excel'],
+    gh:'https://github.com/Sovith07/credit-card-sql-analysis'
+  },
+  {
+    cat:'viz',
+    icon:'🏏',
+    grad:'#00E676,#FFD93D',
+    tag:'Visualization',
+    tagColor:'#00E676',
+    name:'IPL Statistics & Analytics',
+    desc:'Interactive Power BI analytics system covering 17 IPL seasons. Includes Overview, Team, and Player Profile dashboards with 10+ visualisations — runs distribution, wickets leaderboard, win percentages, and top scorers.',
+    stack:['Power BI','DAX','Data Modelling','Excel'],
+    gh:'https://github.com/Sovith07/IPL-Statistics-Analytics'
+  },
+];
+
+function switchCV(type, btn) {
+  document.querySelectorAll('.cv-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('cv-analytics').style.display = type === 'analytics' ? 'block' : 'none';
+  document.getElementById('cv-science').style.display = type === 'science' ? 'block' : 'none';
+}
+
+function renderProjects(filter){
+  const grid = document.getElementById('proj-grid');
+  const list = filter==='all' ? projects : projects.filter(p=>p.cat===filter);
+  grid.innerHTML = list.map(p=>`
+    <div class="proj-card">
+      <div class="proj-card-top" style="--grad:linear-gradient(135deg,${p.grad});">
+        <div class="proj-icon">${p.icon}</div>
+      </div>
+      <div class="proj-card-body">
+        <div class="proj-card-tag" style="color:${p.tagColor}">${p.tag}</div>
+        <div class="proj-card-name">${p.name}</div>
+        <div class="proj-card-desc">${p.desc}</div>
+        <div class="proj-card-footer">
+          <div class="proj-stack">${p.stack.map(s=>`<span class="proj-pill">${s}</span>`).join('')}</div>
+          <a class="proj-gh-btn" href="${p.gh}" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterProj(cat, btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProjects(cat);
+}
+
+function showPage(id, btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  if(btn) btn.classList.add('active');
+  if(id==='projects') renderProjects('all');
+}
+
+function copyEmail(){
+  const addr = document.getElementById('email-addr').textContent;
+  navigator.clipboard.writeText(addr).then(()=>{
+    const btn = document.querySelector('.email-copy-btn');
+    btn.textContent = '✓ Copied!';
+    setTimeout(()=>btn.textContent='Copy Email', 2000);
+  });
+}
+
+renderProjects('all');
+</script>
